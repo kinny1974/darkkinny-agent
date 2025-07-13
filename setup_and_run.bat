@@ -1,99 +1,99 @@
 @echo off
-echo Setting up and running DarkKinny Agent...
+echo Configurando y ejecutando el Agente DarkKinny...
 
-:: --- Check for Ollama ---
+:: --- Verificar Ollama ---
 echo.
-echo Checking for Ollama installation...
+echo Verificando la instalacion de Ollama...
 ollama --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo Ollama is not installed or not in PATH. Please install Ollama from https://ollama.com/download
-    echo and ensure it's running before proceeding.
+    echo Ollama no esta instalado o no esta en el PATH. Por favor, instale Ollama desde https://ollama.com/download
+    echo y asegurese de que este en ejecucion antes de continuar.
     pause
     exit /b 1
 ) else (
-    echo Ollama is installed.
+    echo Ollama esta instalado.
 )
 
-:: --- Check for Node.js ---
+:: --- Verificar Node.js ---
 echo.
-echo Checking for Node.js installation...
+echo Verificando la instalacion de Node.js...
 node -v >nul 2>&1
 if %errorlevel% neq 0 (
-    echo Node.js is not installed. Please install Node.js from https://nodejs.org/en/download/
+    echo Node.js no esta instalado. Por favor, instale Node.js desde https://nodejs.org/en/download/
     pause
     exit /b 1
 ) else (
-    echo Node.js is installed.
+    echo Node.js esta instalado.
 )
 
-:: --- Python Agent Setup ---
+:: --- Configuracion del Agente Python ---
 echo.
-echo Setting up Python Agent virtual environment and dependencies...
+echo Configurando el entorno virtual y las dependencias del Agente Python...
 cd agent
 if not exist .venv (
-    echo Creating Python virtual environment...
+    echo Creando entorno virtual de Python...
     python -m venv .venv
 )
 call .venv\Scripts\activate
 if %errorlevel% neq 0 (
-    echo Failed to activate virtual environment. Ensure Python is installed and in PATH.
+    echo Fallo al activar el entorno virtual. Asegurese de que Python este instalado y en el PATH.
     pause
     exit /b 1
 )
-echo Installing Python dependencies...
+echo Instalando dependencias de Python...
 pip install -r requirements.txt
 if %errorlevel% neq 0 (
-    echo Failed to install Python dependencies.
+    echo Fallo al instalar las dependencias de Python.
     pause
     exit /b 1
 )
-echo Python Agent setup complete.
+echo Configuracion del Agente Python completada.
 cd ..
 
-:: --- Node.js Server Setup ---
+:: --- Configuracion del Servidor Node.js ---
 echo.
-echo Setting up Node.js Server dependencies...
+echo Configurando las dependencias del Servidor Node.js...
 cd server
-echo Installing Node.js server dependencies...
+echo Instalando dependencias del servidor Node.js...
 npm install
 if %errorlevel% neq 0 (
-    echo Failed to install Node.js server dependencies.
+    echo Fallo al instalar las dependencias del servidor Node.js.
     pause
     exit /b 1
 )
-echo Node.js Server setup complete.
+echo Configuracion del Servidor Node.js completada.
 cd ..
 
-:: --- Node.js Client Setup ---
+:: --- Configuracion del Cliente Node.js ---
 echo.
-echo Setting up Node.js Client dependencies...
+echo Configurando las dependencias del Cliente Node.js...
 cd cliente
-echo Installing Node.js client dependencies...
+echo Instalando dependencias del cliente Node.js...
 npm install
 if %errorlevel% neq 0 (
-    echo Failed to install Node.js client dependencies.
+    echo Fallo al instalar las dependencias del cliente Node.js.
     pause
     exit /b 1
 )
-echo Node.js Client setup complete.
+echo Configuracion del Cliente Node.js completada.
 cd ..
 
-:: --- Starting Components ---
+:: --- Iniciando Componentes ---
 echo.
-echo Starting Agent, Server, and Client...
+echo Iniciando Agente, Servidor y Cliente...
 
-echo Starting Python Agent...
+echo Iniciando Agente Python...
 start /B python agent\src\main.py
 
-echo Starting Node.js Server...
+echo Iniciando Servidor Node.js...
 start /B node server\src\index.js
 
-echo Starting Node.js Client...
+echo Iniciando Cliente Node.js...
 start /B npm --prefix cliente run start
 
 echo.
-echo All components are attempting to start in the background.
-echo You can close this window, but the processes will continue to run.
-echo Check your browser for the client application (usually http://localhost:5173/).
-echo To stop the processes, you may need to use Task Manager (Windows) or 'kill' command (Linux).
+echo Todos los componentes estan intentando iniciarse en segundo plano.
+echo Puede cerrar esta ventana, pero los procesos seguiran ejecutandose.
+echo Revise su navegador para la aplicacion cliente (normalmente http://localhost:5173/).
+echo Para detener los procesos, es posible que deba usar el Administrador de tareas (Windows) o el comando 'kill' (Linux).
 pause
