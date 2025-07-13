@@ -105,7 +105,7 @@ function App() {
       try {
         const response = await fetch('http://localhost:3001/api/models');
         if (!response.ok) {
-          throw new Error('Error fetching models.');
+          throw new Error('Error al cargar modelos.');
         }
         const data = await response.json();
         setAvailableModels(data.models);
@@ -147,7 +147,7 @@ function App() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Something went wrong on the server.');
+        throw new Error(errorData.error || 'Algo salió mal en el servidor.');
       }
 
       const agentResponse = await response.json();
@@ -203,7 +203,7 @@ function App() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Error uploading folder content.');
+        throw new Error(errorData.error || 'Error al cargar el contenido de la carpeta.');
       }
 
       // Store the folder content in state
