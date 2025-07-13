@@ -22,3 +22,4 @@ yarn-error.log*
 
 # Compressed files
 *.zip
+compress_project.bat
