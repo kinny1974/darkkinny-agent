@@ -246,7 +246,7 @@ function App() {
             }}
           />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: '"Star Jedi", sans-serif' }}>
-            DarkKinny - Asistente de Programación (MCP/A2A)
+            DarkKinny Agent
           </Typography>
           {selectedLlm && conversationStarted && ( // Show restart button only when LLM is selected and conversation started
             <Tooltip title="Reiniciar Agente">
